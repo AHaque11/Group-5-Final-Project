@@ -1,0 +1,51 @@
+The Book Thief; Markus Zusak; 2
+A Clockwork Orange; Anthony Burgess; 2
+The Hound of the Baskervilles; Sir Arthur Conan Doyle; 3
+Little Women; Louisa May Alcott; 3
+No Country for Old Men; Cormac McCarthy; 1
+Of Mice and Men; John Steinbeck; 2
+The Picture of Dorian Gray; Oscar Wilde; 2
+Wuthering Heights; Emily Brontë; 2
+Farenheit 451; Ray Bradbury; 3
+The Giver; Lois Lowry; 2
+Life of Pi; Yann Martel; 2
+The Amber Spyglass; Philip Pullman; 2
+The Hitchhiker's Guide to the Galaxy; Douglas Adams; 2
+The Miserable Mill; Lemony Snicket; 1
+Go Ask Alice; Anonymous; 2
+A Child Called "It"; Dave Pelzer; 1
+The Westing Game; Ellen Raskins; 2
+The Blind Assassin; Margaret Atwood; 1
+Ender's Game; Orson Scott Card; 3
+The Fall of the House of Usher; Edgar Allan Poe; 2
+One Flew Over the Cuckoo's Nest; Ken Kesey; 2
+Beloved; Toni Morrison; 2
+Bleak House; Charles Dickens; 3
+Frankenstein; Mary Shelley; 3
+The Host; Stephanie Meyer; 2
+Hannibal; Thomas Harris; 2
+The Alchemist; Paulo Coelho; 2
+The Lovely Bones; Alice Sebold; 1
+Atonement; Ian McEwan; 1
+Daughter of Fortune; Isabel Allende; 1
+Zorro; Isable Allende; 1
+Gathering Blue; Lois Lowry; 1
+Jane Eyre; Charlotte Brontë; 2
+A Tale of Two Cities; Charles Dickens; 2
+The Golden Compass; Philip Pullman; 2
+Ender's Shadow; Orson Scott Card; 1
+The Vile Village; Lemony Snicket; 1
+So Long, and Thanks for All the Fish; Douglass Adams; 2
+A Woman of No Importance; Oscar Wilde; 1
+Les Misérables; Victor Hugo; 2
+To Kill a Mockingbird; Harper Lee; 3
+Animal Farm; George Orwell; 2
+Lord of the Flies; William Golding; 3
+Anna Karenina; Leo Tolstoy; 2
+The Grapes of Wrath; John Steinbeck; 1
+War and Peace; Leo Tolstoy; 2
+The Call of the Wild; Jack London; 1
+Hamlet; William Shakespeare; 3
+The Old Man and the Sea; Ernest Hemingway; 2
+Moby Dick; Herman Melville; 2
+
