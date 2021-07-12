@@ -4,6 +4,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <iomanip>
+#include <algorithm>
 
 using namespace std;
 
@@ -12,55 +14,48 @@ struct Inventory // AH
 {
     string Title;// AH
     string Author;// AH
-    int Quantity;// AH
+    int Quantity = 0;// AH
+
 };
 
 
-bool ReadInventoryFile(string inventoryFileName, Inventory titleArray[], Inventory authorArray[], Inventory quantityArray[]);// AH
+bool ReadInventoryFile(string inventoryFileName, Inventory inventoryArray[]);// AH
+void DisplayAndUpdateInventory(Inventory inventoryArray[]);// EH
 
 
 const string INVENTORY_FILE_NAME = "LibraryInventory.txt";// AH
 const int INVENTORY_LIST_LENGTH = 50;// AH
 
 
+
 int main()
 {
-    Inventory titles[INVENTORY_LIST_LENGTH];// AH
-    Inventory authors[INVENTORY_LIST_LENGTH];// AH
-    Inventory quantity[INVENTORY_LIST_LENGTH];// AH
+    Inventory inventory[INVENTORY_LIST_LENGTH];// AH
 
-    ReadInventoryFile(INVENTORY_FILE_NAME, titles, authors, quantity);// AH
+    ReadInventoryFile(INVENTORY_FILE_NAME, inventory);// AH
+    DisplayAndUpdateInventory(inventory);//EH
 
     system("pause");
     return 0;
 }
 
 
-bool ReadInventoryFile(string inventoryFileName, Inventory titleArray[], Inventory authorArray[], Inventory quantityArray[])// AH
+bool ReadInventoryFile(string inventoryFileName, Inventory inventoryArray[])// AH
 {
     ifstream inventoryFile;// AH
     inventoryFile.open(inventoryFileName);// AH
+    string ch = " ";
 
     if (inventoryFile)// AH
     {
-        int titleIndex = 0;
-        int quantityIndex;
-        int authorIndex;
-        while (!inventoryFile.eof() && titleIndex < INVENTORY_LIST_LENGTH)// AH
+
+        for (int index = 0; index < INVENTORY_LIST_LENGTH; index++)
         {
-            getline(inventoryFile, titleArray[titleIndex].Title, ';');
 
-            for (int authorIndex = 0; authorIndex < INVENTORY_LIST_LENGTH; authorIndex++)// AH
-            {
-                getline(inventoryFile, authorArray[authorIndex].Author, ';');
-            }
-
-            for (int quantityIndex = 0; quantityIndex < INVENTORY_LIST_LENGTH; quantityIndex++)// AH
-            {
-                inventoryFile >> quantityArray[quantityIndex].Quantity;
-            }
-
-            titleIndex++;
+            getline(inventoryFile, inventoryArray[index].Title, ';');
+            getline(inventoryFile, inventoryArray[index].Author, ';');
+            getline(inventoryFile, ch, '\n');
+            inventoryArray[index].Quantity = stoi(ch);
         }
 
         inventoryFile.close();// AH
@@ -68,5 +63,81 @@ bool ReadInventoryFile(string inventoryFileName, Inventory titleArray[], Invento
     }
 
     return false;// AH
+}
+
+void DisplayAndUpdateInventory(Inventory inventoryArray[])//EH
+{
+    int bookIDWidth = 7;
+    int titleWidth = 45;
+    int authorWidth = 30;
+    int availableWidth = 15;
+    int totalWidth = bookIDWidth + titleWidth + authorWidth + availableWidth;
+
+    string programTitle = "Library Inventory";
+
+    char userContinue = 'c';
+    int userChoice = 0;
+
+    string checkInCheckOut = "value";
+
+    while (userContinue != 'q')//EH
+    {
+        cout << endl << setw(static_cast<unsigned __int64>(totalWidth) / 2 + programTitle.length() / 2) << programTitle
+            << setw(static_cast<unsigned __int64>(totalWidth) / 2 + programTitle.length() / 2) << endl;
+
+        cout << setw(totalWidth) << setfill('_') << '_' << setfill(' ') << endl << endl;
+
+        cout << setw(bookIDWidth) << "Book ID"
+            << setw(titleWidth) << "Title"
+            << setw(authorWidth) << "Author"
+            << setw(availableWidth) << "# Available" << endl;
+
+        cout << setw(totalWidth) << setfill('_') << '_' << setfill(' ') << endl << endl;
+
+        for (int index = 1; index <= INVENTORY_LIST_LENGTH; index++)//EH
+        {
+            cout << setw(bookIDWidth) << index << setw(titleWidth) << inventoryArray[index - 1].Title
+                << setw(authorWidth) << inventoryArray[index - 1].Author << setw(availableWidth)
+                << inventoryArray[index - 1].Quantity << endl;
+            cout << setw(totalWidth) << setfill('_') << '_' << setfill(' ') << endl << endl;
+
+        }
+
+        cout << "Enter the ID number of the book you'd like to check in or check out: ";
+        cin >> userChoice;
+        cout << endl;
+
+        if (userChoice >= 1 && userChoice <= 50)//EH
+        {
+            cout << "Type \"in\" to check book in, type \"out\" to check book out, or type any character to back out of selection: ";
+            cin >> checkInCheckOut;
+            transform(checkInCheckOut.begin(), checkInCheckOut.end(), checkInCheckOut.begin(), tolower);
+            cout << endl;
+
+            if (checkInCheckOut == "in")
+                inventoryArray[userChoice - 1].Quantity++;
+            else if (checkInCheckOut == "out")
+                if (inventoryArray[userChoice - 1].Quantity == 0)
+                    cout << "All copies of " << inventoryArray[userChoice - 1].Title << " are checked out." << endl << endl;
+                else
+                    inventoryArray[userChoice - 1].Quantity--;
+            else
+                cout << "Neither \"in\" nor \"out\" entered. The quantity of \"" << inventoryArray[userChoice - 1].Title << "\" will not be updated." << endl << endl;
+        }
+
+        else//EH
+        {
+            cin.clear();
+            cin.ignore(100, '\n');
+            cout << "Invalid entry. Book IDs are integers between 1 and 50." << endl;
+        }
+
+
+        cout << "Type any character to continue or type 'q' to close program: ";
+        cin >> userContinue;
+        userContinue = tolower(userContinue);
+
+    }
+
 }
 
