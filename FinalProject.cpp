@@ -83,6 +83,8 @@ void DisplayAndUpdateInventory(Inventory inventoryArray[])//EH
     int authorWidth = 30;
     int availableWidth = 15;
     int totalWidth = bookIDWidth + titleWidth + authorWidth + availableWidth;
+    int bookCount[50] = { 2,2,3,3,1,2,2,2,3,2,2,2,2,1,2,1,2,1,3,2,2,2,3,3,2,
+        2,2,1,1,1,1,1,2,2,2,1,1,2,1,2,3,2,3,2,1,2,1,3,2,2 };
 
     string programTitle = "Library Inventory";
 
@@ -126,15 +128,21 @@ void DisplayAndUpdateInventory(Inventory inventoryArray[])//EH
             cout << endl;
 
             if (checkInCheckOut == "in")
-                inventoryArray[userChoice - 1].Quantity++;
+            {
+                if (inventoryArray[userChoice - 1].Quantity == bookCount[userChoice - 1])
+                    cout << "All copies of \"" << inventoryArray[userChoice - 1].Title << "\" are checked in." << endl << endl;
+                else
+                    inventoryArray[userChoice - 1].Quantity++;
+            }
             else if (checkInCheckOut == "out")
+            {
                 if (inventoryArray[userChoice - 1].Quantity == 0)
-                    cout << "All copies of " << inventoryArray[userChoice - 1].Title << " are checked out." << endl << endl;
+                    cout << "All copies of \"" << inventoryArray[userChoice - 1].Title << "\" are checked out." << endl << endl;
                 else
                     inventoryArray[userChoice - 1].Quantity--;
+            }
             else
                 cout << "Neither \"in\" nor \"out\" entered. The quantity of \"" << inventoryArray[userChoice - 1].Title << "\" will not be updated." << endl << endl;
-        }
 
         else//EH
         {
