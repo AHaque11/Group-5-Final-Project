@@ -102,24 +102,25 @@ void WriteOutInventoryFile(Inventory inventoryArray[], string inventoryFileName)
 
 void DisplayAndUpdateInventory(Inventory inventoryArray[])//EH
 {
-    int bookIDWidth = 7;
-    int titleWidth = 45;
-    int authorWidth = 30;
-    int availableWidth = 15;
-    int totalWidth = bookIDWidth + titleWidth + authorWidth + availableWidth;
+    int bookIDWidth = 7;//used for formatting. EH
+    int titleWidth = 45;//used for formatting. ED
+    int authorWidth = 30;//used for formatting. EH
+    int availableWidth = 15;//used for formatting. EH
+    int totalWidth = bookIDWidth + titleWidth + authorWidth + availableWidth;//used for formatting. EH
+    //the quantity of each book checked in shouldn't exceed the number of copies owned, so this array is used for bounds checking when checking in a book. EH
     int bookCount[50] = { 2,2,3,3,1,2,2,2,3,2,2,2,2,1,2,1,2,1,3,2,2,2,3,3,2,
         2,2,1,1,1,1,1,2,2,2,1,1,2,1,2,3,2,3,2,1,2,1,3,2,2 };
 
-    string programTitle = "Library Inventory";
+    string programTitle = "Library Inventory";//used for formatting output. EH
 
-    char userContinue = 'c';
-    int userChoice = 0;
+    char userContinue = 'c';//this is the sentinel variable of the while loop within which the user checks in/out books. EH
+    int userChoice = 0;//this is used to determine which book the user would like to check in/out; each book has an int book ID. EH
 
-    string checkInCheckOut = "value";
+    string checkInCheckOut = "value";//this is used to store the user's response to whether he/she is checking in or out a book. EH
 
-    while (userContinue != 'q')//EH
+    while (userContinue != 'q')//the program continues running unless the user enters 'q' when prompted. EH
     {
-        cout << endl << setw(static_cast<unsigned __int64>(totalWidth) / 2 + programTitle.length() / 2) << programTitle
+        cout << endl << setw(static_cast<unsigned __int64>(totalWidth) / 2 + programTitle.length() / 2) << programTitle//formats program title. EH
             << setw(static_cast<unsigned __int64>(totalWidth) / 2 + programTitle.length() / 2) << endl;
 
         cout << setw(totalWidth) << setfill('_') << '_' << setfill(' ') << endl << endl;
@@ -127,7 +128,7 @@ void DisplayAndUpdateInventory(Inventory inventoryArray[])//EH
         cout << setw(bookIDWidth) << "Book ID"
             << setw(titleWidth) << "Title"
             << setw(authorWidth) << "Author"
-            << setw(availableWidth) << "# Available" << endl;
+            << setw(availableWidth) << "# Available" << endl;//formats headers. EH
 
         cout << setw(totalWidth) << setfill('_') << '_' << setfill(' ') << endl << endl;
 
@@ -136,39 +137,39 @@ void DisplayAndUpdateInventory(Inventory inventoryArray[])//EH
             cout << setw(bookIDWidth) << index << setw(titleWidth) << inventoryArray[index - 1].Title
                 << setw(authorWidth) << inventoryArray[index - 1].Author << setw(availableWidth)
                 << inventoryArray[index - 1].Quantity << endl;
-            cout << setw(totalWidth) << setfill('_') << '_' << setfill(' ') << endl << endl;
+            cout << setw(totalWidth) << setfill('_') << '_' << setfill(' ') << endl << endl;//formats and prints to console array contents. EH
 
         }
 
-        cout << "Enter the ID number of the book you'd like to check in or check out: ";
+        cout << "Enter the ID number of the book you'd like to check in or check out: ";//prompts user for book ID (int value from 1 to 50). EH
         cin >> userChoice;
         cout << endl;
 
-        if (userChoice >= 1 && userChoice <= 50)//EH
+        if (userChoice >= 1 && userChoice <= 50)//checks whether user input is valid book ID. EH
         {
-            cout << "Type \"in\" to check book in, type \"out\" to check book out, or type any character to back out of selection: ";
-            cin >> checkInCheckOut;
-            transform(checkInCheckOut.begin(), checkInCheckOut.end(), checkInCheckOut.begin(), tolower);
+            cout << "Type \"in\" to check book in, type \"out\" to check book out, or type any character to back out of selection: ";//prompts user for desired action.EH
+            cin >> checkInCheckOut;//
+            transform(checkInCheckOut.begin(), checkInCheckOut.end(), checkInCheckOut.begin(), tolower);//sets user input to lowercase to simplify following conditional statements.EH
             cout << endl;
 
             if (checkInCheckOut == "in")
             {
-                if (inventoryArray[userChoice - 1].Quantity == bookCount[userChoice - 1])
-                    cout << "All copies of \"" << inventoryArray[userChoice - 1].Title << "\" are checked in." << endl << endl;
+                if (inventoryArray[userChoice - 1].Quantity == bookCount[userChoice - 1])//checks whether number of checked-in books is already the number owned.EH
+                    cout << "All copies of \"" << inventoryArray[userChoice - 1].Title << "\" are checked in." << endl << endl;//if it is, the quantity is not incremented.EH
                 else
-                    inventoryArray[userChoice - 1].Quantity++;
+                    inventoryArray[userChoice - 1].Quantity++;//if it isn't, the quantity is incremented.EH
             }
             else if (checkInCheckOut == "out")
             {
-                if (inventoryArray[userChoice - 1].Quantity == 0)
-                    cout << "All copies of \"" << inventoryArray[userChoice - 1].Title << "\" are checked out." << endl << endl;
+                if (inventoryArray[userChoice - 1].Quantity == 0)//checks whether number of books in inventory is zero. EH
+                    cout << "All copies of \"" << inventoryArray[userChoice - 1].Title << "\" are checked out." << endl << endl;//if it is, quantity not decremented; no copies to take away.EH
                 else
-                    inventoryArray[userChoice - 1].Quantity--;
+                    inventoryArray[userChoice - 1].Quantity--;//if it isn't, quantity is decremented
             }
-            else
+            else//prints when user's action selection is not recognized as "in" or "out" EH
                 cout << "Neither \"in\" nor \"out\" entered. The quantity of \"" << inventoryArray[userChoice - 1].Title << "\" will not be updated." << endl << endl;
         }
-        else//EH
+        else//this happens when user's initial input is not an integer between 1 and 50.EH
         {
             cin.clear();
             cin.ignore(100, '\n');
@@ -176,7 +177,7 @@ void DisplayAndUpdateInventory(Inventory inventoryArray[])//EH
         }
 
 
-        cout << "Type any character to continue or type 'q' to close program: ";
+        cout << "Type any character to continue or type 'q' to close program: ";//reassigns sentinel variable so user can run program again or close program.EH
         cin >> userContinue;
         userContinue = tolower(userContinue);
     }
