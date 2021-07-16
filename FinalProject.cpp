@@ -103,7 +103,7 @@ void WriteOutInventoryFile(Inventory inventoryArray[], string inventoryFileName)
 void DisplayAndUpdateInventory(Inventory inventoryArray[])//EH
 {
     int bookIDWidth = 7;//used for formatting. EH
-    int titleWidth = 45;//used for formatting. ED
+    int titleWidth = 45;//used for formatting. EH
     int authorWidth = 30;//used for formatting. EH
     int availableWidth = 15;//used for formatting. EH
     int totalWidth = bookIDWidth + titleWidth + authorWidth + availableWidth;//used for formatting. EH
@@ -164,7 +164,7 @@ void DisplayAndUpdateInventory(Inventory inventoryArray[])//EH
                 if (inventoryArray[userChoice - 1].Quantity == 0)//checks whether number of books in inventory is zero. EH
                     cout << "All copies of \"" << inventoryArray[userChoice - 1].Title << "\" are checked out." << endl << endl;//if it is, quantity not decremented; no copies to take away.EH
                 else
-                    inventoryArray[userChoice - 1].Quantity--;//if it isn't, quantity is decremented
+                    inventoryArray[userChoice - 1].Quantity--;//if it isn't, quantity is decremented.EH
             }
             else//prints when user's action selection is not recognized as "in" or "out" EH
                 cout << "Neither \"in\" nor \"out\" entered. The quantity of \"" << inventoryArray[userChoice - 1].Title << "\" will not be updated." << endl << endl;
