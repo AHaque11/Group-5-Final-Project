@@ -143,7 +143,7 @@ void DisplayAndUpdateInventory(Inventory inventoryArray[])//EH
             }
             else
                 cout << "Neither \"in\" nor \"out\" entered. The quantity of \"" << inventoryArray[userChoice - 1].Title << "\" will not be updated." << endl << endl;
-
+        }
         else//EH
         {
             cin.clear();
