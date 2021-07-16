@@ -1,5 +1,11 @@
-// Group 5 Final Project.cpp : 
-//
+// Group 5 Final Project.cpp : Library Inventory
+
+/******************************************************************************************************************************************************
+    This program updates a library inventory based on the number of copies of a book that are checked in/out. The user changes the name of the text 
+    file with a list of the inventory with the format: Book Title; Book Author; #  with the number at the end representing the quantity of each title
+    available for checkout.
+
+******************************************************************************************************************************************************/
 
 #include <iostream>
 #include <fstream>
@@ -12,57 +18,75 @@ using namespace std;
 
 struct Inventory // AH
 {
-    string Title;// AH
-    string Author;// AH
-    int Quantity = 0;// AH
+    string Title;   // Variable to hold book title. -AH
+    string Author;  // Variable to hold author. -AH
+    int Quantity = 0;   // Variable to hold number of copies. -AH
 
 };
 
 
+// Function prototypes.
 bool ReadInventoryFile(string inventoryFileName, Inventory inventoryArray[]);// AH
 void DisplayAndUpdateInventory(Inventory inventoryArray[]);// EH
 void WriteOutInventoryFile(Inventory inventoryArray[], string inventoryFileName);// JZ
 
-const string INVENTORY_FILE_NAME = "LibraryInventory.txt";// AH
-const int INVENTORY_LIST_LENGTH = 50;// AH
+const string INVENTORY_FILE_NAME = "LibraryInventory.txt";  // Const string to hold the name of the inventory file. -AH
+const int INVENTORY_LIST_LENGTH = 50;   // Const int to hold the length of the inventory list. -AH
 
 
 
 int main()
 {
-    Inventory inventory[INVENTORY_LIST_LENGTH];// AH
+    Inventory inventory[INVENTORY_LIST_LENGTH]; // Array of structs for each line in the inventory list. -AH
 
-    ReadInventoryFile(INVENTORY_FILE_NAME, inventory);// AH
+    
+    
+    // Pass the file name and struct array into the ReadInventoryFile function. If the function returns a failure, display
+    // this message and exit the program. -AH
+    if(ReadInventoryFile(INVENTORY_FILE_NAME, inventory) == false)
+    {
+        cout << "Error, could not read inventory file." << endl;
+        system("pause");
+        return 1;
+    }  
     DisplayAndUpdateInventory(inventory);//EH
 
     system("pause");
     return 0;
 }
 
-
+/********************************************************************************
+Function to open and read the inventory file, and store the information into the 
+struct array.
+********************************************************************************/
 bool ReadInventoryFile(string inventoryFileName, Inventory inventoryArray[])// AH
 {
-    ifstream inventoryFile;// AH
-    inventoryFile.open(inventoryFileName);// AH
-    string ch = " ";
+    // Create and open the input file for the inventory - AH. 
+    ifstream inventoryFile;
+    inventoryFile.open(inventoryFileName);
+    
+    string ch = " "; // Variable to hold the integer (number of copies) at the end of the line. -AH
 
-    if (inventoryFile)// AH
+    if (inventoryFile)// If the file is successfully opened,
     {
 
+        // For each line in the inventory file,
         for (int index = 0; index < INVENTORY_LIST_LENGTH; index++)
         {
-
+            // Read the title and authors as strings to the struct array up to the semicolons, and the final character
+            // until a new line begins. - AH
             getline(inventoryFile, inventoryArray[index].Title, ';');
             getline(inventoryFile, inventoryArray[index].Author, ';');
             getline(inventoryFile, ch, '\n');
             inventoryArray[index].Quantity = stoi(ch);
         }
-
-        inventoryFile.close();// AH
+        
+        // Close the inventoty file. - AH
+        inventoryFile.close();
         return true;
     }
 
-    return false;// AH
+    return false; // If the file could not be read successfully, return false. - AH.
 }
 
 void WriteOutInventoryFile(Inventory inventoryArray[], string inventoryFileName) {// JZ
