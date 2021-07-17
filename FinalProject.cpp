@@ -89,15 +89,19 @@ bool ReadInventoryFile(string inventoryFileName, Inventory inventoryArray[])// A
     return false; // If the file could not be read successfully, return false. - AH.
 }
 
+/********************************************************************************
+Function to loop though the struct array that modified by the user, and then 
+write out the array data to a external inventory text file.
+********************************************************************************/
 void WriteOutInventoryFile(Inventory inventoryArray[], string inventoryFileName) {// JZ
     ofstream MyFile(inventoryFileName);
-    for (int i = 0; i < INVENTORY_LIST_LENGTH; i++) {//JZ
-        MyFile << inventoryArray[i].Title << "; " 
-            << inventoryArray[i].Author << "; "
-            << inventoryArray[i].Quantity << "\n";
+    for (int i = 0; i < INVENTORY_LIST_LENGTH; i++) {//loop through the struct array
+        MyFile << inventoryArray[i].Title << "; " //write out the title of the book
+            << inventoryArray[i].Author << "; "   //write out the author of the book
+            << inventoryArray[i].Quantity << "\n";//write out the quantity of the book
     }
     
-    MyFile.close();//JZ
+    MyFile.close();//Close the file after finish modifying
 }
 
 void DisplayAndUpdateInventory(Inventory inventoryArray[])//EH
@@ -182,7 +186,7 @@ void DisplayAndUpdateInventory(Inventory inventoryArray[])//EH
         userContinue = tolower(userContinue);
     }
 
-    if (userContinue == 'q') {// JZ
+    if (userContinue == 'q') {// After user finish modifying the sturct array, call the write data out to external file function
         WriteOutInventoryFile(inventoryArray, INVENTORY_FILE_NAME);
     }
 
